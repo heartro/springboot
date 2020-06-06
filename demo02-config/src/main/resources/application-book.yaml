@@ -1,0 +1,7 @@
+book1:
+  name: JAVA是怎样炼成的
+  authors:  #对象数组配置测试
+    - name: zhangsan
+      age: 23
+    - name: wangwu
+      age: 25

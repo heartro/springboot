@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    include: book,role #这里将application-book.yaml和application-role.yaml导入了
+
+# -----------------------------------------------------------------------------------
+
+user1:
+  name: heartrozw
+#  age: 23
+  age: ${random.int(5,50)} #测试随机数
+  roles:
+    - ceo
+    - cto
+    - admin
+  resources:
+    res01: doAaa
+    res02: doBbb
+    res03: doCcc
+    res04: ${random.uuid} #测试UUID
+  role:
+    id: 0
+    name: 超级管理员
+  #operation-count: 每小时操作十次     #测试松散绑定的几种写法
+  #operation_count: 每小时操作一百次
+  OPERATION_COUNT: 每小时操作一千次
+
+#role1:
+#  id: 1
+#  name: 系统管理员
+
+role1:
+  id: ${otherRole.id} #测试获取别的配置在这里使用
+  name: ${otherRole.name}

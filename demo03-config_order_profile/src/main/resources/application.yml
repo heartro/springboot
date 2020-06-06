@@ -1,0 +1,10 @@
+#server:
+#  port: 8084
+
+# 4st
+
+currentName: root
+
+spring:
+  profiles:
+    active: dev

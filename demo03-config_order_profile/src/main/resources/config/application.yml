@@ -1,0 +1,26 @@
+#server:
+#  port: 8083
+
+# 3st
+
+# 7到11行先注释掉，为了测试上一级文件夹下的分文件配置测试
+#server:
+#  port: 9091
+#spring:
+#  profiles:
+#    active: aaa #这里设置激活的profile，可以覆盖主配置
+
+---
+
+server:
+  port: 9092
+spring:
+  profiles: aaa
+
+
+---
+
+server:
+  port: 9093
+spring:
+  profiles: bbb
