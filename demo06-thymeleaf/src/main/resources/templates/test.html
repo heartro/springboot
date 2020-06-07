@@ -5,6 +5,164 @@
     <title>test</title>
 </head>
 <body>
-    <p th:text="${name}">张三</p>
+<h1>几种字面量</h1>
+    字符串：[[${'Hello ''Thymeleaf'}]]，<!-- 两个单引号转义，输出一个单引号 -->
+            [[${"Hello SpringBoot"}]]
+    <br/>
+    数值：[[${100}]],
+            [[${-3.1415926}]]
+    <br/>
+    布尔值：[[${true}]], [[${false}]]
+    <br/>
+    空值：[[${null}]]<!--空值不会输出-->
+    <br/>
+    符号：<span th:class="content">看看class属性呢</span><!--实际上这里的content省略了单引号，所以叫做符号字面量-->
+<hr/>
+
+<h1>算术运算符</h1>
+    100 + 88 = [[${100 + 88}]]<br/>
+    100 - 88 = [[${100 - 88}]]<br/>
+    100 * 88 = [[${100 * 88}]]<br/>
+    100 / 88 = [[${100 / 88}]]<br/>
+    100.0 / 88.0 = [[${100.0 / 88.0}]]<br/>
+    100 % 30 = [[${100 % 30}]]<br/>
+<hr/>
+
+<h1>比较运算符</h1>
+[[${ 20 > 19  }]]，[[${ 20 gt 19 }]]<br/>
+[[${ 20 < 19  }]]，[[${ 20 lt 19 }]]<br/>
+[[${ 20 >= 19 }]]，[[${ 20 ge 19 }]]<br/>
+<span th:text="${ 20<=19 }"></span>，[[${ 20 le 19 }]]，[[ ${ 20 &lt;= 19 }]]<br/>  <!--  [[${ 20 <= 19 }]]  这里直接使用<=会报错，居然需要转义写法，简直是要疯了……  -->
+[[${ 20 == 20 }]]，[[${ 20 eq 20 }]]<br/>
+[[${ 20 != 20 }]]，[[${ 20 ne 20 }]]<br/>
+<hr/>
+
+<h1>逻辑运算符（布尔运算符）</h1>
+[[${ true and true  }]]，[[${ true and false  }]]，[[${ false and true  }]]，[[${ false and false  }]]<br/>
+[[${ true or  true  }]]，[[${ true or  false  }]]，[[${ false or  true  }]]，[[${ false or  false  }]]<br/>
+[[${ not false  }]]，[[${ not true  }]]，[[${ !false  }]]，[[${ !true  }]]<br/>
+<hr/>
+
+<h1>条件运算符</h1>
+name = [[${param.name}]]<br/>
+<span th:text="${param.name != null} ? '您好，'+${param.name} : '你好，请登录'"></span><br/> <!-- 这个相当于三元运算符 -->
+<span th:text="${19>=18} ? '已成年'" ></span><br/> <!-- 这里相当于单个if -->
+<span th:text="${param.phone} ?: '请输入电话号码'" ></span> <!-- 为空，则使用?:之后的作为默认值 -->
+<hr/>
+
+<h1>输出作用域中的单个值 和 对象</h1>
+<!-- th:text 输出替换文本，里面是OGNL表达式 -->
+    <p th:text="${name}">姓名</p>
+    <p>[[${name}]]</p>
+
+<!-- 这里输出的内容中有标签，被自动转义 -->
+    <p th:text="${name2}">姓名2</p>
+    <p>[[${name2}]]</p>  <!-- 可以看到[[OGNL表达式]]的输出会转义 -->
+
+<!-- th:utext 原样输出替换文本 -->
+    <p th:utext="${name2}">姓名2</p>
+    <p>[(${name2})]</p>  <!-- 可以看到[(OGNL表达式)]的输出不会转义 -->
+
+<!-- 输出对象属性测试，可以用 点，也可以用中括号写属性名 -->
+    <p>编号：<span th:text="${user.id}">编号</span></p>
+    <p>姓名：<span th:text="${user.name}">姓名</span></p>
+    <p>年龄：<span th:text="${user['age']}">年龄</span></p>
+
+<!-- th:object 选择对象   -->
+    <div th:object="${user2}" >
+<!--        *{属性名} 获取选择对象的属性值 -->
+        <p>编号：<span th:text="*{id}">编号</span></p>
+        <p>姓名：<span th:text="*{name}">姓名</span></p>
+        <p>年龄：<span th:text="*{age}">年龄</span></p>
+    </div>
+<hr/>
+
+<h1>th:if 和 th:unless</h1>
+<p th:if="${age ge 18}">
+    年龄大于18岁，可以喝酒。
+</p>
+<p th:unless="${age ge 18}"><!-- 条件不成立才执行 -->
+    年龄小于18岁，只能喝果汁。
+</p>
+<hr/>
+
+<h1>th:switch 和 th:case</h1>
+
+<div th:switch="${num}">
+    <p th:case="0">一个西瓜</p>
+    <p th:case="1">劈成两半</p>
+    <p th:case="2">三个人吃</p>
+    <p th:case="3">打死一个</p>
+    <p th:case="4">称霸武林</p>
+</div>
+
+<hr/>
+
+
+<h1>th:each 遍历各种集合</h1>
+<!-- th:each 遍历各种集合 -->
+    <!-- <ol>,<ul>等标签来做遍历 -->
+    <ol>
+        <li th:each="usr:${userList}">
+            <p>编号：<span th:text="${usr.id}">编号</span></p>
+            <p>姓名：<span th:text="${usr.name}">姓名</span></p>
+            <p>年龄：<span th:text="${usr.age}">年龄</span></p>
+        </li>
+    </ol>
+
+    <!-- <tr>标签来做遍历 -->
+    <table border="1">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+        </tr>
+        <tr th:each="usr:${userList}">
+            <td th:text="${usr.id}">编号</td>
+            <td th:text="${usr.name}">姓名</td>
+            <td th:text="${usr.age}">年龄</td>
+        </tr>
+    </table>
+
+    <!-- <p>标签来做遍历，定义状态对象st -->
+    <p th:each="usr,st:${userList}">
+        index:<span th:text="${st.index}"></span> -
+        count:<span th:text="${st.count}"></span> -
+        current:<span th:text="${st.current}"></span> -
+        even:<span th:text="${st.even}"></span> -
+        odd:<span th:text="${st.odd}"></span> -
+        first:<span th:text="${st.first}"></span> -
+        last:<span th:text="${st.last}"></span><br/>
+        编号：<span th:text="${usr.id}">编号</span>
+        姓名：<span th:text="${usr.name}">姓名</span>
+        年龄：<span th:text="${usr.age}">年龄</span><br/>
+    </p>
+
+    <!-- 遍历Set -->
+    <p th:each="usr : ${userSet}">
+        编号：<span th:text="${usr.id}">编号</span>
+        姓名：<span th:text="${usr.name}">姓名</span>
+        年龄：<span th:text="${usr.age}">年龄</span><br/>
+    </p>
+
+    <!-- 遍历Map -->
+    <p th:each="usr : ${userMap}">
+        key: <span th:text="${usr.key}"></span> -
+        <span th:object="${usr.value}">
+        编号：<span th:text="*{id}">编号</span>
+        姓名：<span th:text="*{name}">姓名</span>
+        年龄：<span th:text="${usr.value.age}">年龄</span><br/>
+        </span>
+    </p>
+<hr/>
+
+<h1>测试各个作用域取值</h1>
+<p>
+    request:<span th:text="${role}"></span><br/><!--默认就是取request作用域的-->
+    session:<span th:text="${session.role}"></span><br/>
+    application:<span th:text="${application.role}"></span><br/>
+</p>
+<hr/>
+
 </body>
 </html>
