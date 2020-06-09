@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<th:block th:replace="~{commons/common::head(title='404')}"></th:block>
+	<link th:href="@{/assets/css/pages/extra_pages.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form" th:action="@{/}" method="post">
+					<span class="error-header p-b-45">
+						404
+					</span>
+					<span class="error-subheader p-b-5">
+						您的访问没成功
+					</span>
+					<span class="error-subheader2 p-b-5">
+						这个页面是不存在的！
+					</span>
+					
+					<div class="container-login100-form-btn p-t-30	">
+						<button class="login100-form-btn">
+							回到首页
+						</button>
+					</div>
+					
+					<!--<div class="w-full p-t-15 p-b-15 text-center">
+
+						<div>
+							<a href="#" class="txt1">
+								Need Help?
+							</a>
+						</div>
+					</div>-->
+
+				</form>
+
+				<div class="login100-more" th:style="'background-image: url(' + @{/assets/images/pages/bg-03.png} + ');'">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Plugins Js -->
+	<script th:src="@{/assets/js/app.min.js}"></script>
+	<!-- Extra page Js -->
+	<script th:src="@{/assets/js/pages/examples/pages.js}"></script>
+</body>
+
+</html>

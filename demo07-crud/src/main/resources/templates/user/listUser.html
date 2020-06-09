@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{commons/common::head(title='用户列表')}"></th:block>
+</head>
+
+<body class="light">
+    <div th:replace="~{commons/common::pageLoader}"></div>
+    <div th:replace="~{commons/common::overlay}"></div>
+    <nav th:replace="~{commons/common::navbar}"></nav>
+    <div>
+        <aside th:replace="~{commons/common::leftsidebar}"></aside>
+        <aside th:replace="~{commons/common::rightsidebar}"></aside>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div th:replace="~{commons/common::blockHeader('信息列表', '用户管理', 'user/list', '用户管理')}"></div>
+            <!-- Your content goes here  -->
+            <!-- Bordered Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                <strong>用户管理</strong> 信息列表</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="#" onClick="return false;" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="#" onClick="return false;">Action</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onClick="return false;">Another action</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onClick="return false;">Something else here</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>入职日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${list}">
+                                    <th scope="row" th:text="${user.id}">1</th>
+                                    <td th:text="${user.name}">Mark</td>
+                                    <td th:text="${user.sex==1 ? '男':'女'}">Otto</td>
+                                    <td th:text="${#dates.format(user.hireDate, 'yyyy-MM-dd')}">@mdo</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Bordered Table -->
+        </div>
+    </section>
+    <script th:src="@{/assets/js/app.min.js}"></script>
+    <!-- Custom Js -->
+    <script th:src="@{/assets/js/admin.js}"></script>
+</body>
+
+</html>
