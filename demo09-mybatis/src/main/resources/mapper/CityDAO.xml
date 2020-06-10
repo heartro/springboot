@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heartrozw.dao.CityDAO">
+    <resultMap id="BaseResultMap" type="com.heartrozw.entity.City">
+        <id property="id" column="city_id"/>
+        <id property="province" column="city_province"/>
+        <id property="name" column="city_name"/>
+        <id property="fixLetter" column="city_fixLetter"/>
+        <id property="namePY" column="city_namePY"/>
+        <id property="order" column="city_order"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true">
+        insert into T_City values(null, #{city.province}, #{city.name}, #{city.fixLetter}, #{city.namePY}, #{city.order});
+    </insert>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from T_City;
+    </select>
+</mapper>

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/DTMISDB?serverTimezone=GMT&2B8&characterEncoding=UTF-8
+    username: root
+    password: abcd1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml #mapper文件位置，必须设置
+  type-aliases-package: com.heartrozw.entity
+
+logging:
+  level:
+    com:
+      heartrozw:
+        dao: debug
